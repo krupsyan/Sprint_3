@@ -1,7 +1,6 @@
 package order;
 
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -9,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.apache.http.HttpStatus.*;
 
-public class ListTest {
+public class ListOrdersTest {
     private OrderClient orderClient;
     private int track;
 
@@ -19,7 +19,6 @@ public class ListTest {
     @Before
     public void setup() {
         orderClient = new OrderClient();
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/api/v1";
     }
 
     @Test
@@ -27,9 +26,17 @@ public class ListTest {
     public void OrderListSuccess() {
 
         Order order = Order.getRandom();
-        track = orderClient.create(order);
+        track = orderClient.createOrder(order)
+                .assertThat()
+                .statusCode(SC_CREATED)
+                .extract()
+                .path("track");
 
-        orders = orderClient.list();
+        orders = orderClient.listOrders()
+                .assertThat()
+                .statusCode(SC_OK)
+                .extract()
+                .jsonPath().getList("orders");
 
         assertTrue(orders.size() > 0);
     }

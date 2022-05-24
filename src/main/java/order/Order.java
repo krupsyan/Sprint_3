@@ -1,5 +1,6 @@
 package order;
 
+import io.qameta.allure.Step;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,7 @@ public class Order {
     }
 
 
+    @Step("Generate a new order with all fields random with color from argument")
     public static Order getRandom(String [] color) {
 
         LocalDate dateObj = LocalDate.now();
@@ -46,6 +48,7 @@ public class Order {
         return new Order(firstName, lastName, address, metroStation, phone, rentTime, date, comment, color);
     }
 
+    @Step("Generate a new order with all fields random")
     public static Order getRandom() {
 
         LocalDate dateObj = LocalDate.now();

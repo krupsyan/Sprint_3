@@ -1,34 +1,28 @@
 package order;
 
+import io.qameta.allure.Step;
+import io.restassured.response.ValidatableResponse;
 import root.RestAssuredClient;
-import java.util.List;
 
 public class OrderClient extends RestAssuredClient {
 
     private final String ROOT = "/orders";
-    private final String ACCEPT = ROOT + "/accept" + "/{id}?courierId={courierId}";
 
-    public int create(Order order) {
+    @Step("Create a new order")
+    public ValidatableResponse createOrder(Order order) {
         return reqSpec
                 .body(order)
                 .when()
                 .post(ROOT)
-                .then().log().all()
-                .assertThat()
-                .statusCode(201)
-                .extract()
-                .path("track");
+                .then().log().all();
     }
 
-    public List<Object> list() {
+    @Step("List all orders")
+    public ValidatableResponse listOrders() {
         return reqSpec
                 .when()
                 .get(ROOT)
-                .then().log().all()
-                .assertThat()
-                .statusCode(200)
-                .extract()
-                .jsonPath().getList("orders");
+                .then().log().all();
 
     }
 }
