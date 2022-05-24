@@ -2,7 +2,6 @@ package courier;
 
 import io.qameta.allure.Step;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -10,7 +9,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class CourierNoPassword {
     private String login;
     private String firstName;

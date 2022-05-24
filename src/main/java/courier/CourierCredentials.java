@@ -2,14 +2,12 @@ package courier;
 
 import io.qameta.allure.Step;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class CourierCredentials {
     private String login;
     private String password;
